@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define N 1000000
+
+struct SuffixAutomaton {
+  int sz, len[2*N+5], nxt[2*N+5][2], link[2*N+5];
+  void init() {
+    sz = 0
+  }
+};
+
+int main() {
+  
+  return 0;
+}
