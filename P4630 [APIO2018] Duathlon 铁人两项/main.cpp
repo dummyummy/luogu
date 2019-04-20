@@ -23,22 +23,22 @@ void addEdge(int u, int v) {
 }
 
 void tarjan(int u) {
-  dfn[u] = low[u] = ++dfn_clk;
-  stk[++tp] = u;
+  dfn[u] = low[u] = ++dfn_clk; //初始化dfn和low数组
+  stk[++tp] = u; //把u加入栈中
   for(int i = head[u]; i; i = e[i].next) {
     int v = e[i].to;
-    if(!dfn[v]) {
-      tarjan(v);
-      low[u] = min(low[u], low[v]);
-      if(low[v] == dfn[u]) {
-        ++tot;
-        for(int x = 0; x != v; --tp) {
+    if(!dfn[v]) { //v还未访问
+      tarjan(v); //先访问
+      low[u] = min(low[u], low[v]); //然后更新u的信息
+      if(low[v] == dfn[u]) { //找到一个以u为顶点的点双
+        ++tot; //新建一个方点
+        for(int x = 0; x != v; --tp) { //把栈中在u之前的点都向方点连边并弹出
           x = stk[tp];
           G[tot].push_back(x);
           G[x].push_back(tot);
         }
-        G[tot].push_back(u);
-        G[u].push_back(tot);
+        G[tot].push_back(u); //注意不能把u弹出
+        G[u].push_back(tot); //因为u可能在多个点双中
       }
     }
     else low[u] = min(low[u], dfn[v]);
